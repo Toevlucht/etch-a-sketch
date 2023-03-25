@@ -80,7 +80,14 @@ reset.addEventListener('click', function() {
 //generate a random rgb color
 const randomColor = document.querySelector('#random-color');
 randomColor.addEventListener('click', () => {
-    currentColor = "random";
+    if (randomColor.textContent === "Random color") {
+        randomColor.textContent = "Black stylus";
+        currentColor = "random";
+    } else {
+        randomColor.textContent = "Random color";
+        currentColor = "black";
+    }
+
 });
 
 //set random rgb as random color
