@@ -6,11 +6,11 @@
     height: 960px;  
     margin-bottom: 15px;
     background-color: white;
+    border: 1px solid black;
 }
 
 .grid-container div {
     padding: auto;
-    border: 1px solid black;
     background-color: white;
     /* add transition effect */
     /* transition: background 0.2s ease;  */

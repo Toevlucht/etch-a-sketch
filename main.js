@@ -1,4 +1,5 @@
 const gridContainer = document.querySelector('.grid-container');
+let isMouseDown = false;
 
 function createGrid(numbSquares) {
     for (let i = 0; i < numbSquares * numbSquares; i++) {
@@ -7,19 +8,22 @@ function createGrid(numbSquares) {
         gridContainer.style.gridTemplateColumns = `repeat(${numbSquares}, 1fr)`;
         gridContainer.style.gridTemplateRows = `repeat(${numbSquares}, 1fr)`;
         gridContainer.appendChild(square);
-    }
 
-    const squares = document.querySelectorAll('.square');
-    squares.forEach(square => {
-        square.addEventListener('mouseover', () => {
-            square.style.backgroundColor = 'black'
-            square.style.transition = 'background 0.2s ease'; 
+        square.addEventListener('mousedown', function() {
+            isMouseDown = true;
+            this.style.backgroundColor = "black";
         });
-        square.addEventListener('mouseleave', () => {
-            square.style.backgroundColor = 'white'
-            square.style.transition = 'background-color black 0.2s ease'; 
+
+        square.addEventListener('mouseover', function() {
+            if (isMouseDown) {
+                this.style.backgroundColor = "black";
+            }
         });
-    })
+
+        square.addEventListener('mouseup', function() {
+            isMouseDown = false;
+        });
+    }
 }
 
 function deleteGrid () {
