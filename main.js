@@ -31,6 +31,7 @@ function createGrid(numbSquares) {
     }
 }
 
+//draw function
 function draw(square) {
     if (currentColor === "random") {
         setRandomColor(square);
@@ -103,6 +104,12 @@ const eraserBtn = document.querySelector('#eraser');
 eraserBtn.addEventListener('click', () => {
     currentColor = "white"
 })
+
+//pick a color using colorPicker
+const colorPicker = document.getElementById('colorPicker')
+colorPicker.addEventListener('input', function() {
+    currentColor = colorPicker.value;
+});
 
 //create initial grid
 createGrid(16);
