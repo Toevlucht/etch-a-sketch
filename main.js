@@ -74,7 +74,7 @@ function updateGrid(size) {
 
 //reset the sketch and set to last selected amount of pixels
 const reset = document.querySelector('#reset') 
-reset.addEventListener('click', function() {
+reset.addEventListener('click', () => {
     deleteGrid();
     createGrid(lastSelectedSize);
 });
