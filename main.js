@@ -1,7 +1,12 @@
 const gridContainer = document.querySelector('.grid-container');
 let isMouseDown = false;
+let lastSelectedSize = 16;
+let currentColor = "black";
 
+//create a new grid based on variable 'numbSquares'
 function createGrid(numbSquares) {
+    lastSelectedSize = numbSquares;
+
     for (let i = 0; i < numbSquares * numbSquares; i++) {
         const square = document.createElement('div');
         square.classList.add('square')
@@ -9,14 +14,14 @@ function createGrid(numbSquares) {
         gridContainer.style.gridTemplateRows = `repeat(${numbSquares}, 1fr)`;
         gridContainer.appendChild(square);
 
-        square.addEventListener('mousedown', function() {
+        square.addEventListener('mousedown', () => {
             isMouseDown = true;
-            this.style.backgroundColor = "black";
+            draw(square);
         });
 
         square.addEventListener('mouseover', function() {
             if (isMouseDown) {
-                this.style.backgroundColor = "black";
+                draw(square);
             }
         });
 
@@ -26,14 +31,25 @@ function createGrid(numbSquares) {
     }
 }
 
+function draw(square) {
+    if (currentColor === "random") {
+        setRandomColor(square);
+    } else if (currentColor === "white") {
+        square.style.backgroundColor = currentColor;
+    } else {
+        square.style.backgroundColor = currentColor;
+    }
+};
+
 function deleteGrid () {
     while (gridContainer.firstChild) {
         gridContainer.removeChild(gridContainer.firstChild);
     }
 }
 
-const btn = document.querySelector('.btn')
-btn.addEventListener('click', function() {
+//get new grid-size number
+const grid = document.querySelector('#new-grid')
+grid.addEventListener('click', function() {
     let numbSquares;
 
     while (true) {
@@ -45,7 +61,7 @@ btn.addEventListener('click', function() {
         } 
         
         alert ("invalid input, please enter a number (max. 100)");
-        
+        return numbSquares;  
     }
 
     deleteGrid();
@@ -53,4 +69,33 @@ btn.addEventListener('click', function() {
 
 });
 
+//reset the sketch and set to last selected amount of pixels
+const reset = document.querySelector('#reset') 
+reset.addEventListener('click', function() {
+    deleteGrid();
+    createGrid(lastSelectedSize);
+});
+
+
+//generate a random rgb color
+const randomColor = document.querySelector('#random-color');
+randomColor.addEventListener('click', () => {
+    currentColor = "random";
+});
+
+//set random rgb as random color
+function setRandomColor(square) {
+    const red = Math.floor(Math.random() * 256);
+    const green = Math.floor(Math.random() * 256);
+    const blue = Math.floor(Math.random() * 256);
+    square.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+};
+
+//set eraser button
+const eraserBtn = document.querySelector('#eraser');
+eraserBtn.addEventListener('click', () => {
+    currentColor = "white"
+})
+
+//create initial grid
 createGrid(16);
