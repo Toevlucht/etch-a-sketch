@@ -23,14 +23,14 @@ function createGrid(size) {
         });
 
         //also draw in case of mouseover, if isMouseDown is true
-        square.addEventListener('mouseover', function() {
+        square.addEventListener('mouseover', () => {
             if (isMouseDown) {
                 draw(square);
             }
         });
 
         //stop drawing when releasing 'click'
-        square.addEventListener('mouseup', function() {
+        square.addEventListener('mouseup', () => {
             isMouseDown = false;
         });
     }
